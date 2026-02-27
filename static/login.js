@@ -606,7 +606,7 @@
       eyeClosed.style.display = isPassword ? 'block' : 'none';
     });
 
-    els.adminLoginForm.addEventListener('submit', event => {
+    els.adminLoginForm.addEventListener('submit', async (event) => {
       event.preventDefault();
 
       let valid = true;
@@ -629,8 +629,29 @@
 
       if (!valid) return;
 
-      localStorage.setItem('grievanceAdmin', JSON.stringify({ email }));
-      window.location.href = '/admin.html';
+      const submitBtn = els.adminLoginForm.querySelector('button[type="submit"]');
+      setButtonLoading(submitBtn, true);
+
+      try {
+        const res = await fetch('/admin-login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password })
+        });
+        const data = await res.json();
+
+        if (data.success) {
+          localStorage.setItem('adminSession', JSON.stringify({ email, role: 'admin', name: data.name || email.split('@')[0] }));
+          showToast('Admin login successful');
+          setTimeout(() => { window.location.href = '/admin'; }, 800);
+        } else {
+          showErrorToast(data.error || 'Invalid admin credentials');
+        }
+      } catch (err) {
+        showErrorToast('Server error. Please try again.');
+      } finally {
+        setButtonLoading(submitBtn, false);
+      }
     });
   }
 

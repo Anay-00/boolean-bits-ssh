@@ -968,6 +968,236 @@ button {
     accent-color: var(--primary-blue);
 }
 
+/* ======== SEARCH RESULTS DROPDOWN ======== */
+.search-results {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    right: 0;
+    background: var(--bg-white);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+    max-height: 340px;
+    overflow-y: auto;
+    z-index: 1100;
+    display: none;
+}
+
+.search-results.visible {
+    display: block;
+}
+
+.search-result-item {
+    padding: 0.65rem 1rem;
+    cursor: pointer;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    transition: background 0.15s;
+}
+
+.search-result-item:last-child {
+    border-bottom: none;
+}
+
+.search-result-item:hover {
+    background: var(--light-blue);
+}
+
+.search-result-item .sr-id {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--primary-blue);
+    min-width: 80px;
+}
+
+.search-result-item .sr-title {
+    font-size: 0.82rem;
+    font-weight: 500;
+    flex: 1;
+}
+
+.search-result-item .sr-dept {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+}
+
+.search-no-results {
+    padding: 1.25rem 1rem;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+}
+
+.search-more-results {
+    padding: 0.6rem 1rem;
+    text-align: center;
+    color: var(--primary-blue);
+    font-size: 0.75rem;
+    font-weight: 600;
+    background: var(--bg-light-grey);
+    border-top: 1px solid var(--border-color);
+}
+
+/* ======== PROFILE DROPDOWN ======== */
+.header-actions {
+    position: relative;
+}
+
+.profile-dropdown {
+    position: absolute;
+    top: 52px;
+    right: 0;
+    width: 260px;
+    background: var(--bg-white);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+    z-index: 1200;
+    display: none;
+    animation: dropdownSlide 0.2s ease-out;
+}
+
+.profile-dropdown.visible {
+    display: block;
+}
+
+@keyframes dropdownSlide {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.dropdown-header {
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.dropdown-name {
+    font-size: 0.88rem;
+    font-weight: 600;
+}
+
+.dropdown-email {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+}
+
+.dropdown-divider {
+    height: 1px;
+    background: var(--border-color);
+}
+
+.dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.65rem 1rem;
+    color: var(--text-dark);
+    text-decoration: none;
+    font-size: 0.82rem;
+    font-weight: 500;
+    transition: background 0.15s;
+}
+
+.dropdown-item:hover {
+    background: var(--bg-light-grey);
+}
+
+.dropdown-item i {
+    width: 18px;
+    text-align: center;
+    color: var(--text-muted);
+}
+
+.dropdown-logout {
+    color: var(--danger);
+}
+
+.dropdown-logout i {
+    color: var(--danger);
+}
+
+.dropdown-logout:hover {
+    background: var(--danger-light);
+}
+
+/* ======== SORTABLE TABLE HEADERS ======== */
+.sortable {
+    cursor: pointer;
+    user-select: none;
+    transition: color 0.2s;
+}
+
+.sortable:hover {
+    color: var(--primary-blue);
+}
+
+.sortable i {
+    font-size: 0.65rem;
+    margin-left: 4px;
+    opacity: 0.35;
+    transition: opacity 0.2s;
+}
+
+.sortable.sort-asc i,
+.sortable.sort-desc i {
+    opacity: 1;
+    color: var(--primary-blue);
+}
+
+/* ======== PRIORITY BADGES ======== */
+.priority-badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: var(--radius-pill);
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.priority-high {
+    background: var(--danger-light);
+    color: var(--danger);
+}
+
+.priority-medium {
+    background: var(--warning-light);
+    color: var(--warning);
+}
+
+.priority-low {
+    background: var(--success-light);
+    color: var(--success);
+}
+
+/* ======== EMPTY STATE ======== */
+.empty-state {
+    text-align: center;
+    padding: 3rem 1.5rem;
+    color: var(--text-muted);
+}
+
+.empty-state i {
+    font-size: 2.5rem;
+    margin-bottom: 0.75rem;
+    opacity: 0.25;
+    display: block;
+}
+
+.empty-state p {
+    font-size: 0.88rem;
+}
+
 /* Responsive */
 @media (max-width: 1024px) {
     .dashboard-grid-2 {

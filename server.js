@@ -53,6 +53,22 @@ app.get('/seed', (req, res) => {
   res.sendFile(path.join(__dirname, 'seed.html'));
 });
 
+app.get('/admin', (req, res) => {
+  res.sendFile(path.join(__dirname, 'admin.html'));
+});
+
+/* ── Admin Login ── */
+app.post('/admin-login', (req, res) => {
+  const { email, password } = req.body || {};
+  const adminEmail = process.env.ADMIN_EMAIL || 'admin@samadhansetu.gov.in';
+  const adminPassword = process.env.ADMIN_PASSWORD || 'Admin@2026';
+  const adminName = process.env.ADMIN_NAME || 'Super Admin';
+
+  if (email === adminEmail && password === adminPassword) {
+    return res.json({ success: true, name: adminName });
+  }
+  return res.status(401).json({ success: false, error: 'Invalid admin credentials' });
+});
 /* ── Serve root-level files (home.html, home.css, home.js, complaint.css, etc.) ── */
 app.use(express.static(__dirname, {
   extensions: ['html', 'css', 'js'],

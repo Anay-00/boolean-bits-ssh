@@ -86,32 +86,44 @@
 
     <!-- Main Wrapper -->
     <main class="main-wrapper">
-        <!-- Emergency Banner -->
-        <div class="emergency-banner" id="emergencyBanner">
-            <span><i class="fa-solid fa-triangle-exclamation"></i> Emergency Alert: High volume of flooding complaints
-                reported in Zone 3! Auto-alert sent to Water Department.</span>
-            <button class="close-alert" onclick="document.getElementById('emergencyBanner').style.display='none'"><i
-                    class="fa-solid fa-xmark"></i></button>
-        </div>
+        <!-- Emergency banners will be dynamically generated from Firebase alerts -->
 
         <!-- Top Header -->
         <header class="top-header">
             <div class="header-search">
                 <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" placeholder="Search complaints, names, IDs...">
+                <input type="text" id="globalSearch" placeholder="Search complaints, names, IDs..." autocomplete="off">
+                <div class="search-results" id="searchResults"></div>
             </div>
             <div class="header-actions">
-                <button class="action-btn">
-                    <i class="fa-solid fa-bell"></i>
-                    <span class="indicator"></span>
-                </button>
-                <div class="admin-profile">
-                    <div class="admin-avatar">AK</div>
+                <div class="admin-profile" id="adminProfileBtn">
+                    <div class="admin-avatar" id="adminAvatar">AD</div>
                     <div class="admin-info">
-                        <span class="admin-name">Amit Kumar</span>
+                        <span class="admin-name" id="adminName">Admin</span>
                         <span class="admin-role">Super Admin</span>
                     </div>
                     <i class="fa-solid fa-chevron-down" style="font-size: 0.75rem; color: var(--text-muted);"></i>
+                </div>
+                <!-- Profile Dropdown -->
+                <div class="profile-dropdown" id="profileDropdown">
+                    <div class="dropdown-header">
+                        <div class="admin-avatar" id="dropdownAvatar">AD</div>
+                        <div>
+                            <div class="dropdown-name" id="dropdownName">Admin</div>
+                            <div class="dropdown-email" id="dropdownEmail">admin@samadhansetu.gov.in</div>
+                        </div>
+                    </div>
+                    <div class="dropdown-divider"></div>
+                    <a href="#" class="dropdown-item" data-target="settings">
+                        <i class="fa-solid fa-user"></i> View Profile
+                    </a>
+                    <a href="#" class="dropdown-item" data-target="settings">
+                        <i class="fa-solid fa-gear"></i> Settings
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a href="#" class="dropdown-item dropdown-logout" id="logoutBtn">
+                        <i class="fa-solid fa-right-from-bracket"></i> Logout
+                    </a>
                 </div>
             </div>
         </header>
@@ -301,24 +313,29 @@
                     <button class="btn btn-primary"><i class="fa-solid fa-download"></i> Export</button>
                 </div>
                 <div class="table-responsive">
-                    <table class="table">
+                    <table class="table" id="complaintsTable">
                         <thead>
                             <tr>
-                                <th><input type="checkbox"></th>
-                                <th>ID</th>
-                                <th>Name</th>
-                                <th>Category / Dept</th>
+                                <th><input type="checkbox" id="selectAllComplaints"></th>
+                                <th class="sortable" data-sort="id">ID <i class="fa-solid fa-sort"></i></th>
+                                <th class="sortable" data-sort="name">Name <i class="fa-solid fa-sort"></i></th>
+                                <th class="sortable" data-sort="department">Category / Dept <i
+                                        class="fa-solid fa-sort"></i></th>
                                 <th>Location</th>
-                                <th>Status</th>
-                                <th>Priority</th>
-                                <th>Date</th>
+                                <th class="sortable" data-sort="status">Status <i class="fa-solid fa-sort"></i></th>
+                                <th class="sortable" data-sort="priority">Priority <i class="fa-solid fa-sort"></i></th>
+                                <th class="sortable" data-sort="date">Date <i class="fa-solid fa-sort"></i></th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody id="complaintsTableBody">
-                            <!-- Populated via Javascript -->
+                            <!-- Populated from Firebase -->
                         </tbody>
                     </table>
+                    <div class="empty-state" id="complaintsEmpty" style="display:none;">
+                        <i class="fa-solid fa-inbox"></i>
+                        <p>No complaints found.</p>
+                    </div>
                 </div>
             </div>
         </section>
