@@ -32,6 +32,9 @@
 (function () {
     'use strict';
 
+    let activeMapInstance = null;
+    let hasInitialized = false;
+
     /* ── Indore center & bounds ── */
     const INDORE_CENTER = [22.7196, 75.8577];
     const INDORE_ZOOM = 12;
@@ -317,8 +320,23 @@
        INIT — run full pipeline
        ────────────────────────────────── */
     async function init() {
+        if (hasInitialized) {
+            if (activeMapInstance) {
+                setTimeout(() => activeMapInstance.invalidateSize(), 120);
+            }
+            return;
+        }
+
         const mapEl = document.getElementById('indoreMap');
         if (!mapEl) return;
+
+        // When map is inside a hidden tab/section, delay until visible
+        if (mapEl.offsetWidth === 0 || mapEl.offsetHeight === 0) {
+            setTimeout(init, 250);
+            return;
+        }
+
+        hasInitialized = true;
 
         // Step 1: Get data
         let complaints = await fetchComplaintsFromFirestore();
@@ -341,10 +359,15 @@
 
         // Step 4: Render
         const mapInstance = renderMap(heatData, complaints);
+        activeMapInstance = mapInstance;
 
         // Step 5: Attach live updates
         attachLiveUpdates(mapInstance);
     }
+
+    window.addEventListener('samadhan:open-live-map', () => {
+        init();
+    });
 
     // Wait for DOM
     if (document.readyState === 'loading') {

@@ -11,6 +11,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Leaflet Map -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
     <!-- Custom CSS -->
     <link rel="stylesheet" href="static/admin.css">
 </head>
@@ -327,24 +330,22 @@
                 <p class="page-subtitle">Interactive map showing real-time grievance locations.</p>
             </div>
             <div class="panel" style="padding:0; overflow:hidden;">
-                <!-- Map placeholder -->
                 <div class="map-container">
-                    <div class="map-placeholder">
-                        <i class="fa-solid fa-map"></i>
-                        <h3>Map Interface</h3>
-                        <p>Google Maps / Leaflet Integration Here</p>
-                    </div>
+                    <div id="indoreMap" aria-label="Live Grievance Heatmap"></div>
 
-                    <!-- Dummy Pins -->
-                    <i class="fa-solid fa-location-dot map-pin pin-urgent" title="Urgent: Pipe Burst"></i>
-                    <i class="fa-solid fa-location-dot map-pin pin-pending" title="Pending: Pothole"></i>
-                    <i class="fa-solid fa-location-dot map-pin pin-resolved" title="Resolved: Garbage cleared"></i>
-                    <div class="map-pin pin-cluster">23</div>
-                </div>
-                <div style="padding: 1rem; display:flex; gap:1.5rem; background:white;">
-                    <span><i class="fa-solid fa-location-dot" style="color:var(--danger)"></i> Urgent</span>
-                    <span><i class="fa-solid fa-location-dot" style="color:var(--warning)"></i> Pending</span>
-                    <span><i class="fa-solid fa-location-dot" style="color:var(--success)"></i> Resolved</span>
+                    <div class="map-legend">
+                        <h4 class="legend-title">Complaint Density</h4>
+                        <div class="legend-scale">
+                            <span class="legend-low">Low</span>
+                            <div class="legend-gradient"></div>
+                            <span class="legend-high">High</span>
+                        </div>
+                        <div class="legend-stats">
+                            <div><strong id="totalHotspots">0</strong> hotspots</div>
+                            <div><strong id="totalComplaints">0</strong> complaints</div>
+                            <div>Top: <strong id="topCategory">-</strong></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -671,6 +672,13 @@
         </section>
     </main>
 
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="https://unpkg.com/leaflet.heat/dist/leaflet-heat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+    <script src="static/firebase-config.js"></script>
+    <script src="static/heatmap.js"></script>
     <script src="static/admin.js"></script>
 </body>
 

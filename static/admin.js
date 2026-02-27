@@ -44,6 +44,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const targetSection = document.getElementById(targetId);
             if (targetSection) {
                 targetSection.classList.add('active');
+
+                if (targetId === 'live-map') {
+                    window.dispatchEvent(new Event('samadhan:open-live-map'));
+                }
             }
         });
     });
