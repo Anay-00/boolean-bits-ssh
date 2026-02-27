@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Complaint | Samadhan Setu</title>
+    <meta name="description" content="Register a public grievance with AI-powered classification.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="static/home.css">
+    <link rel="stylesheet" href="static/complaint.css">
+</head>
+
+<body>
+    <!-- Header (same as home) -->
+    <header id="main-header">
+        <div class="container header-container">
+            <div class="logo">
+                <i class="fa-solid fa-building-columns brand-icon"></i>
+                <span class="logo-text" data-i18n="brand">Samadhan Setu</span>
+            </div>
+            <nav class="main-nav">
+                <ul class="nav-links">
+                    <li><a href="home.html" data-i18n="nav_home">Home</a></li>
+                    <li><a href="home.html#about" data-i18n="nav_about">About Us</a></li>
+                    <li><a href="home.html#how-it-works" data-i18n="nav_how">How It Works</a></li>
+                    <li><a href="home.html#faq" data-i18n="nav_faq">FAQ</a></li>
+                    <li><a href="home.html#support" data-i18n="nav_support">Help &amp; Support</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <button class="lang-toggle" id="langToggle">
+                    <i class="fa-solid fa-globe"></i>
+                    <span id="langLabel">हिन्दी</span>
+                </button>
+                <div class="user-area" id="userArea">
+                    <a href="login.html" class="btn btn-primary login-btn" id="loginBtn" data-i18n="login_btn">Login</a>
+                </div>
+                <button class="mobile-menu-toggle"><i class="fa-solid fa-bars"></i></button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Complaint Form Section -->
+    <section class="complaint-section">
+        <div class="container">
+            <!-- Breadcrumb -->
+            <div class="breadcrumb">
+                <a href="home.html" data-i18n="nav_home">Home</a>
+                <i class="fa-solid fa-chevron-right"></i>
+                <span data-i18n="complaint_breadcrumb">Register Complaint</span>
+            </div>
+
+            <div class="complaint-wrapper">
+                <!-- Left Info Panel -->
+                <div class="complaint-info">
+                    <div class="info-card">
+                        <div class="info-icon"><i class="fa-solid fa-file-signature"></i></div>
+                        <h2 data-i18n="complaint_heading">Register Your Grievance</h2>
+                        <p data-i18n="complaint_subtext">Fill in the details below and our AI system will classify and
+                            route your complaint to the correct department for swift resolution.</p>
+                    </div>
+                    <div class="info-steps">
+                        <div class="info-step">
+                            <div class="info-step-num">1</div>
+                            <span data-i18n="info_step1">Describe your issue</span>
+                        </div>
+                        <div class="info-step">
+                            <div class="info-step-num">2</div>
+                            <span data-i18n="info_step2">Select department</span>
+                        </div>
+                        <div class="info-step">
+                            <div class="info-step-num">3</div>
+                            <span data-i18n="info_step3">Attach evidence</span>
+                        </div>
+                        <div class="info-step">
+                            <div class="info-step-num">4</div>
+                            <span data-i18n="info_step4">Submit & track</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Form Panel -->
+                <div class="complaint-form-card">
+                    <form id="complaintForm" novalidate>
+                        <!-- Title -->
+                        <div class="form-group">
+                            <label class="form-label" for="complaintTitle" data-i18n="form_title_label">Title of the
+                                Problem</label>
+                            <div class="input-wrap">
+                                <i class="fa-solid fa-heading input-icon"></i>
+                                <input type="text" class="form-input" id="complaintTitle"
+                                    placeholder="Brief title of your issue" data-i18n-placeholder="form_title_ph" />
+                            </div>
+                            <div class="form-error" id="titleError"></div>
+                        </div>
+
+                        <!-- Department -->
+                        <div class="form-group">
+                            <label class="form-label" for="department" data-i18n="form_dept_label">Department
+                                Responsible</label>
+                            <div class="input-wrap">
+                                <i class="fa-solid fa-building input-icon"></i>
+                                <select class="form-input form-select" id="department">
+                                    <option value="" disabled selected data-i18n="form_dept_ph">Select Department
+                                    </option>
+                                    <option value="Water Supply" data-i18n="dept_water">Water Supply</option>
+                                    <option value="Electricity" data-i18n="dept_elec">Electricity</option>
+                                    <option value="Roads & Infrastructure" data-i18n="dept_roads">Roads & Infrastructure
+                                    </option>
+                                    <option value="Sanitation" data-i18n="dept_sanitation">Sanitation</option>
+                                    <option value="Education" data-i18n="dept_education">Education</option>
+                                    <option value="Healthcare" data-i18n="dept_health">Healthcare</option>
+                                    <option value="Public Transport" data-i18n="dept_transport">Public Transport
+                                    </option>
+                                    <option value="Revenue" data-i18n="dept_revenue">Revenue</option>
+                                    <option value="Police" data-i18n="dept_police">Police</option>
+                                    <option value="Other" data-i18n="dept_other">Other</option>
+                                </select>
+                            </div>
+                            <div class="form-error" id="deptError"></div>
+                        </div>
+
+                        <!-- Description -->
+                        <div class="form-group">
+                            <label class="form-label" for="description" data-i18n="form_desc_label">Description of the
+                                Problem</label>
+                            <div class="input-wrap input-wrap--textarea">
+                                <i class="fa-solid fa-align-left input-icon input-icon--top"></i>
+                                <textarea class="form-input form-textarea" id="description" rows="5"
+                                    placeholder="Describe your issue in detail..."
+                                    data-i18n-placeholder="form_desc_ph"></textarea>
+                            </div>
+                            <div class="char-counter"><span id="charCount">0</span> / 1000</div>
+                            <div class="form-error" id="descError"></div>
+                        </div>
+
+                        <!-- File Upload -->
+                        <div class="form-group">
+                            <label class="form-label" data-i18n="form_upload_label">Upload Photos / Videos
+                                (Optional)</label>
+                            <div class="upload-zone" id="uploadZone">
+                                <div class="upload-placeholder" id="uploadPlaceholder">
+                                    <i class="fa-solid fa-cloud-arrow-up upload-icon"></i>
+                                    <p class="upload-text" data-i18n="upload_text">Drag & drop files here or <span
+                                            class="upload-browse">browse</span></p>
+                                    <p class="upload-hint" data-i18n="upload_hint">PNG, JPG, MP4 – Max 10MB each</p>
+                                </div>
+                                <input type="file" class="upload-input" id="fileInput" multiple
+                                    accept="image/*,video/*" />
+                            </div>
+                            <div class="file-previews" id="filePreviews"></div>
+                        </div>
+
+                        <!-- Submit -->
+                        <button type="submit" class="btn btn-primary btn-large submit-btn" id="submitBtn">
+                            <span class="btn-text" data-i18n="form_submit">Submit Complaint</span>
+                            <span class="btn-spinner"></span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Success Modal -->
+    <div class="modal-overlay" id="successModal">
+        <div class="modal-card">
+            <div class="modal-icon">
+                <i class="fa-solid fa-circle-check"></i>
+            </div>
+            <h2 data-i18n="modal_title">Complaint Submitted!</h2>
+            <p data-i18n="modal_desc">Your grievance has been registered and is being processed by our AI system.</p>
+            <div class="modal-id-box">
+                <span class="modal-id-label" data-i18n="modal_id_label">Your Complaint ID</span>
+                <span class="modal-id" id="complaintId">GRV-XXXXXX</span>
+            </div>
+            <p class="modal-note" data-i18n="modal_note">Save this ID to track your complaint status.</p>
+            <div class="modal-actions">
+                <a href="home.html" class="btn btn-primary" data-i18n="modal_home">Go to Home</a>
+                <button class="btn btn-secondary" id="newComplaintBtn" data-i18n="modal_new">New Complaint</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast toast--error" id="errorToast">
+        <i class="fa-solid fa-circle-exclamation"></i>
+        <span id="errorToastMsg">Something went wrong</span>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+    <script src="static/firebase-config.js"></script>
+    <script src="static/complaint.js"></script>
+</body>
+
+</html>

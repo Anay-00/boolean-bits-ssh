@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Samadhan Setu - Admin Dashboard</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="static/admin.css">
+</head>
+
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <i class="fa-solid fa-building-columns sidebar-logo-icon"></i>
+            <span class="sidebar-logo-text">Samadhan Setu</span>
+        </div>
+        <div class="sidebar-menu">
+            <div class="menu-label">Analytics & Overview</div>
+            <a href="#" class="menu-item active" data-target="dashboard">
+                <i class="fa-solid fa-chart-pie"></i>
+                Dashboard
+            </a>
+            <a href="#" class="menu-item" data-target="predictive">
+                <i class="fa-solid fa-brain"></i>
+                Predictive AI <span class="badge">NEW</span>
+            </a>
+            <a href="#" class="menu-item" data-target="ai-insights">
+                <i class="fa-solid fa-robot"></i>
+                AI Insights
+            </a>
+
+            <div class="menu-label">Management</div>
+            <a href="#" class="menu-item" data-target="complaints">
+                <i class="fa-solid fa-list-check"></i>
+                Complaints <span class="badge">12</span>
+            </a>
+            <a href="#" class="menu-item" data-target="live-map">
+                <i class="fa-solid fa-map-location-dot"></i>
+                Live Map
+            </a>
+            <a href="#" class="menu-item" data-target="departments">
+                <i class="fa-solid fa-sitemap"></i>
+                Departments
+            </a>
+            <a href="#" class="menu-item" data-target="users">
+                <i class="fa-solid fa-users"></i>
+                User Management
+            </a>
+            <a href="#" class="menu-item" data-target="officers">
+                <i class="fa-solid fa-user-tie"></i>
+                Officers Stats
+            </a>
+
+            <div class="menu-label">Monitoring</div>
+            <a href="#" class="menu-item" data-target="voice">
+                <i class="fa-solid fa-microphone-lines"></i>
+                Voice Complaints
+            </a>
+            <a href="#" class="menu-item" data-target="social">
+                <i class="fa-brands fa-meta"></i>
+                Social Media
+            </a>
+
+            <div class="menu-label">System</div>
+            <a href="#" class="menu-item" data-target="reports">
+                <i class="fa-solid fa-file-export"></i>
+                Reports
+            </a>
+            <a href="#" class="menu-item" data-target="settings">
+                <i class="fa-solid fa-gear"></i>
+                Settings
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Wrapper -->
+    <main class="main-wrapper">
+        <!-- Emergency Banner -->
+        <div class="emergency-banner" id="emergencyBanner">
+            <span><i class="fa-solid fa-triangle-exclamation"></i> Emergency Alert: High volume of flooding complaints
+                reported in Zone 3! Auto-alert sent to Water Department.</span>
+            <button class="close-alert" onclick="document.getElementById('emergencyBanner').style.display='none'"><i
+                    class="fa-solid fa-xmark"></i></button>
+        </div>
+
+        <!-- Top Header -->
+        <header class="top-header">
+            <div class="header-search">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" placeholder="Search complaints, names, IDs...">
+            </div>
+            <div class="header-actions">
+                <button class="action-btn">
+                    <i class="fa-solid fa-bell"></i>
+                    <span class="indicator"></span>
+                </button>
+                <div class="admin-profile">
+                    <div class="admin-avatar">AK</div>
+                    <div class="admin-info">
+                        <span class="admin-name">Amit Kumar</span>
+                        <span class="admin-role">Super Admin</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-down" style="font-size: 0.75rem; color: var(--text-muted);"></i>
+                </div>
+            </div>
+        </header>
+
+        <!-- Pages -->
+        <!-- Dashboard Section -->
+        <section id="dashboard" class="page-content active">
+            <div class="page-header">
+                <div>
+                    <h1 class="page-title">Overview Dashboard</h1>
+                    <p class="page-subtitle">Welcome back, here's what's happening today.</p>
+                </div>
+                <button class="btn btn-primary"><i class="fa-solid fa-plus"></i> Create Manual Report</button>
+            </div>
+
+            <!-- Overview Cards -->
+            <div class="overview-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-title">Total Complaints</span>
+                        <div class="stat-icon icon-blue"><i class="fa-solid fa-folder-open"></i></div>
+                    </div>
+                    <div class="stat-value" id="statsTotal">0</div>
+                    <div class="stat-trend trend-up"><i class="fa-solid fa-arrow-trend-up"></i> ↑ 12% this week</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-title">Pending</span>
+                        <div class="stat-icon icon-warning"><i class="fa-solid fa-hourglass-half"></i></div>
+                    </div>
+                    <div class="stat-value" id="statsPending">0</div>
+                    <div class="stat-trend trend-down"><i class="fa-solid fa-arrow-trend-down"></i> ↓ 5% this week</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-title">Resolved</span>
+                        <div class="stat-icon icon-success"><i class="fa-solid fa-circle-check"></i></div>
+                    </div>
+                    <div class="stat-value" id="statsResolved">0</div>
+                    <div class="stat-trend trend-up"><i class="fa-solid fa-arrow-trend-up"></i> ↑ 18% this month</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-title">High Priority</span>
+                        <div class="stat-icon icon-danger"><i class="fa-solid fa-circle-exclamation"></i></div>
+                    </div>
+                    <div class="stat-value" id="statsHighPriority">0</div>
+                    <div class="stat-trend trend-up"><i class="fa-solid fa-arrow-trend-up"></i> ↑ 2% today</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-title">Viral AI Trend</span>
+                        <div class="stat-icon icon-purple"><i class="fa-solid fa-fire-flame-curved"></i></div>
+                    </div>
+                    <div class="stat-value">Potholes</div>
+                    <div class="stat-trend trend-up" style="color:#9333EA;"><i class="fa-solid fa-chart-line"></i> 342
+                        mentions</div>
+                </div>
+            </div>
+
+            <!-- Graphs & Trends -->
+            <div class="dashboard-grid-2">
+                <div class="panel">
+                    <div class="panel-header">
+                        <h3 class="panel-title"><i class="fa-solid fa-chart-area"></i> Monthly Trend Analysis</h3>
+                        <button class="btn-icon"><i class="fa-solid fa-ellipsis"></i></button>
+                    </div>
+                    <div>
+                        <canvas id="trendChart" height="250"></canvas>
+                    </div>
+                </div>
+                <div class="panel">
+                    <div class="panel-header">
+                        <h3 class="panel-title"><i class="fa-solid fa-chart-pie"></i> Category Distribution</h3>
+                    </div>
+                    <div>
+                        <canvas id="categoryChart" height="250"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Predictive AI Section -->
+        <section id="predictive" class="page-content">
+            <div class="page-header">
+                <div>
+                    <h1 class="page-title">Predictive Governance</h1>
+                    <p class="page-subtitle">Proactive insights based on historical data and AI modeling.</p>
+                </div>
+            </div>
+            <div class="dashboard-grid-equal">
+                <div class="predictive-card">
+                    <i class="fa-solid fa-cloud-showers-water pred-icon"></i>
+                    <h3 class="pred-title">Flooding Warning - Zone 3</h3>
+                    <p class="pred-desc">"Based on last year's data and current rainfall forecasts, flooding and
+                        drainage complaints may rise by 300% next month in Sector 12 and Zone 3."</p>
+                    <button class="btn btn-outline"
+                        style="background: rgba(255,255,255,0.1); color:white; border-color:rgba(255,255,255,0.3);">Alert
+                        Sanitation Dept</button>
+                </div>
+                <div class="predictive-card" style="background: linear-gradient(135deg, #7c2d12, #451a03);">
+                    <i class="fa-solid fa-temperature-arrow-up pred-icon" style="color: #F87171;"></i>
+                    <h3 class="pred-title">Heatwave Electricity Demand</h3>
+                    <p class="pred-desc">"AI models predict a surge in power cut complaints next week due to extreme
+                        temperatures. Recommend pre-emptive maintenance in Central Substation."</p>
+                    <button class="btn btn-outline"
+                        style="background: rgba(255,255,255,0.1); color:white; border-color:rgba(255,255,255,0.3);">Notify
+                        Electricity Board</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- AI Insights Section -->
+        <section id="ai-insights" class="page-content">
+            <div class="page-header">
+                <h1 class="page-title">AI Analysis Panel</h1>
+            </div>
+            <div class="ai-alert">
+                <i class="fa-solid fa-bolt ai-alert-icon"></i>
+                <div class="ai-alert-content">
+                    <h4>AI Alert</h4>
+                    <p>23 road damage complaints in Sector 12 in the last 48 hours. Suggesting urgent bulk-assignment to
+                        PWD.</p>
+                </div>
+            </div>
+            <div class="dashboard-grid-2">
+                <div class="panel">
+                    <h3 class="panel-title mb-4"><i class="fa-solid fa-magnifying-glass-chart"></i> This Week's Insights
+                    </h3>
+                    <div class="insight-list">
+                        <div class="insight-item">
+                            <div class="insight-info">
+                                <h5>Most Common Problem</h5>
+                                <p>Uncollected Garbage (Sanitation)</p>
+                            </div>
+                            <span class="insight-score">412 cases</span>
+                        </div>
+                        <div class="insight-item">
+                            <div class="insight-info">
+                                <h5>Highest Complaint Area</h5>
+                                <p>Indira Nagar, Ward 45</p>
+                            </div>
+                            <span class="insight-score">18% of total</span>
+                        </div>
+                        <div class="insight-item">
+                            <div class="insight-info">
+                                <h5>Sentiment Analysis</h5>
+                                <p>Public tone is mostly "Frustrated" regarding water supply.</p>
+                            </div>
+                            <span class="insight-score" style="background:#FEE2E2; color:#EF4444;">Negative</span>
+                        </div>
+                        <div class="insight-item">
+                            <div class="insight-info">
+                                <h5>Fake/Duplicate Detection</h5>
+                                <p>AI blocked 45 duplicate entries for 'Streetlight #402'.</p>
+                            </div>
+                            <span class="insight-score" style="background:#D1FAE5; color:#10B981;">Active</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Complaints Table -->
+        <section id="complaints" class="page-content">
+            <div class="page-header">
+                <h1 class="page-title">Complaint Management</h1>
+            </div>
+            <div class="panel">
+                <div class="filter-bar">
+                    <select class="filter-select">
+                        <option>All Departments</option>
+                        <option>Water Board</option>
+                        <option>Sanitation</option>
+                        <option>Electricity</option>
+                    </select>
+                    <select class="filter-select">
+                        <option>All Status</option>
+                        <option>Pending</option>
+                        <option>Resolved</option>
+                    </select>
+                    <select class="filter-select">
+                        <option>Date: Last 7 Days</option>
+                    </select>
+                    <button class="btn btn-outline" style="margin-left:auto;"><i class="fa-solid fa-check-double"></i>
+                        Bulk Assign</button>
+                    <button class="btn btn-primary"><i class="fa-solid fa-download"></i> Export</button>
+                </div>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th><input type="checkbox"></th>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Category / Dept</th>
+                                <th>Location</th>
+                                <th>Status</th>
+                                <th>Priority</th>
+                                <th>Date</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="complaintsTableBody">
+                            <!-- Populated via Javascript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Live Map -->
+        <section id="live-map" class="page-content">
+            <div class="page-header">
+                <h1 class="page-title">Live Tracking Map</h1>
+                <p class="page-subtitle">Interactive map showing real-time grievance locations.</p>
+            </div>
+            <div class="panel" style="padding:0; overflow:hidden;">
+                <!-- Map placeholder -->
+                <div class="map-container">
+                    <div class="map-placeholder">
+                        <i class="fa-solid fa-map"></i>
+                        <h3>Map Interface</h3>
+                        <p>Google Maps / Leaflet Integration Here</p>
+                    </div>
+
+                    <!-- Dummy Pins -->
+                    <i class="fa-solid fa-location-dot map-pin pin-urgent" title="Urgent: Pipe Burst"></i>
+                    <i class="fa-solid fa-location-dot map-pin pin-pending" title="Pending: Pothole"></i>
+                    <i class="fa-solid fa-location-dot map-pin pin-resolved" title="Resolved: Garbage cleared"></i>
+                    <div class="map-pin pin-cluster">23</div>
+                </div>
+                <div style="padding: 1rem; display:flex; gap:1.5rem; background:white;">
+                    <span><i class="fa-solid fa-location-dot" style="color:var(--danger)"></i> Urgent</span>
+                    <span><i class="fa-solid fa-location-dot" style="color:var(--warning)"></i> Pending</span>
+                    <span><i class="fa-solid fa-location-dot" style="color:var(--success)"></i> Resolved</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Officers Stats -->
+        <section id="officers" class="page-content">
+            <div class="page-header">
+                <h1 class="page-title">Officer Performance Analytics</h1>
+            </div>
+            <div class="dashboard-grid-2">
+                <div class="panel">
+                    <h3 class="panel-title mb-4"><i class="fa-solid fa-trophy" style="color:#F59E0B;"></i> Top
+                        Performers Leaderboard</h3>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Officer</th>
+                                    <th>Department</th>
+                                    <th>Resolved</th>
+                                    <th>Avg Time</th>
+                                    <th>Rating</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="user-row">
+                                            <div class="admin-avatar" style="width:32px; height:32px; font-size:12px;">
+                                                VK</div>
+                                            <div class="user-info">
+                                                <h6>Vikram Kumar</h6>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>Sanitation</td>
+                                    <td>145</td>
+                                    <td>1.2 Days</td>
+                                    <td><i class="fa-solid fa-star" style="color:#F59E0B;"></i> 4.9</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="user-row">
+                                            <div class="admin-avatar" style="width:32px; height:32px; font-size:12px;">
+                                                RS</div>
+                                            <div class="user-info">
+                                                <h6>Rajesh Singh</h6>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>Electricity</td>
+                                    <td>112</td>
+                                    <td>2.4 Days</td>
+                                    <td><i class="fa-solid fa-star" style="color:#F59E0B;"></i> 4.5</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- Top Dept -->
+                <div class="panel">
+                    <h3 class="panel-title mb-4"><i class="fa-solid fa-building"></i> Top Department</h3>
+                    <div style="text-align:center; padding: 2rem 0;">
+                        <i class="fa-solid fa-faucet-drip"
+                            style="font-size: 3rem; color: var(--primary-blue); margin-bottom: 1rem;"></i>
+                        <h2>Water supply Board</h2>
+                        <p class="text-muted mt-3">92% Resolution within SLA.</p>
+                        <p class="text-muted">Average time: 2.1 days.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Voice Complaints -->
+        <section id="voice" class="page-content">
+            <div class="page-header">
+                <h1 class="page-title">Voice Complaint Monitoring</h1>
+                <p class="page-subtitle">For rural users: AI transcribes audio to text and auto-assigns.</p>
+            </div>
+            <div class="panel">
+                <h3 class="panel-title mb-4"><i class="fa-solid fa-microphone-lines"></i> Recent Voice Submissions</h3>
+
+                <div
+                    style="border: 1px solid var(--border-color); padding: 1.5rem; border-radius: var(--radius-md); margin-bottom: 1rem;">
+                    <div style="display:flex; justify-content:space-between; margin-bottom: 1rem;">
+                        <strong>ID: #V-9934</strong>
+                        <span class="status-badge"
+                            style="background:var(--light-blue); color:var(--primary-blue);">Lang: Bhojpuri (Confidence:
+                            94%)</span>
+                    </div>
+                    <p style="color:var(--text-muted); font-style:italic;">"Hamre gaon mein pichle teen din se bijli
+                        nahi aayi hai... tar toot gaya hai."</p>
+                    <p style="margin-top: 0.5rem; font-weight:600;"><i class="fa-solid fa-language"></i> Translated:
+                        "There is no electricity in our village for the past three days... the wire is broken."</p>
+
+                    <div class="audio-player">
+                        <button class="play-btn"><i class="fa-solid fa-play"></i></button>
+                        <div class="audio-track">
+                            <div class="audio-progress"></div>
+                        </div>
+                        <span class="audio-time">0:14 / 0:45</span>
+                    </div>
+
+                    <div style="margin-top:1rem;">
+                        AI Route: <strong>Electricity Board</strong> <button class="btn btn-outline btn-small"
+                            style="margin-left:1rem;">Confirm Route</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Social Media -->
+        <section id="social" class="page-content">
+            <div class="page-header">
+                <h1 class="page-title">Social Media Listening</h1>
+                <p class="page-subtitle">Integrating Meta & X APIs to find viral local complaints.</p>
+            </div>
+            <div class="dashboard-grid-equal">
+                <div class="panel">
+                    <div class="social-post">
+                        <div class="social-header">
+                            <span class="social-platform twitter"><i class="fa-brands fa-x-twitter"></i> X
+                                (Twitter)</span>
+                            <span class="badge" style="background:#EF4444; color:white;">Viral Alert</span>
+                        </div>
+                        <p class="social-content">The road condition in front of City Mall is dangerous! 3 accidents
+                            already this week. @GovCity please fix. #RoadSafety #CityMall</p>
+                        <div class="social-meta">
+                            <span><i class="fa-solid fa-retweet"></i> 452</span>
+                            <span><i class="fa-solid fa-heart"></i> 1.2k</span>
+                        </div>
+                        <button class="btn btn-primary btn-small mt-3">Convert to Official Complaint</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Settings Section -->
+        <section id="settings" class="page-content">
+            <div class="page-header">
+                <h1 class="page-title">System Settings</h1>
+            </div>
+            <div class="panel" style="max-width: 600px;">
+                <form>
+                    <h3 class="mb-4">AI Configuration</h3>
+                    <div class="form-group">
+                        <label class="form-label">Voice Transcription Confidence Threshold (%)</label>
+                        <input type="number" class="form-control" value="85">
+                    </div>
+                    <div class="form-group form-check">
+                        <input type="checkbox" id="autoRoute" checked>
+                        <label for="autoRoute" style="font-weight:500;">Enable Auto-Routing to Departments based on
+                            keywords</label>
+                    </div>
+                    <hr style="margin:2rem 0; border: none; border-top: 1px solid var(--border-color);">
+                    <h3 class="mb-4">Integrations</h3>
+                    <div class="form-group">
+                        <label class="form-label">Map API Key (Google / Leaflet)</label>
+                        <input type="password" class="form-control" value="********-**********">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">SMS Gateway Token</label>
+                        <input type="password" class="form-control" value="********-**********">
+                    </div>
+                    <button class="btn btn-primary mt-3">Save Settings</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Department Management -->
+        <section id="departments" class="page-content">
+            <div class="page-header">
+                <h1 class="page-title">Department Management</h1>
+                <button class="btn btn-primary"
+                    onclick="document.getElementById('addDeptForm').style.display='block'"><i
+                        class="fa-solid fa-plus"></i> Add Department</button>
+            </div>
+
+            <div class="panel" id="addDeptForm" style="display:none; margin-bottom: 1.5rem;">
+                <h3 class="mb-4">Add New Department</h3>
+                <form id="newDeptForm">
+                    <div class="dashboard-grid-equal" style="margin-bottom:0;">
+                        <div class="form-group">
+                            <label class="form-label">Department Name</label>
+                            <input type="text" id="deptNameInput" class="form-control" placeholder="e.g. Traffic Police"
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Auto-Route Keywords (comma separated)</label>
+                            <input type="text" id="deptKeywordsInput" class="form-control"
+                                placeholder="traffic, jam, signal, accident" required>
+                        </div>
+                    </div>
+                    <div style="display:flex; justify-content:flex-end; gap:1rem;">
+                        <button type="button" class="btn btn-outline"
+                            onclick="document.getElementById('addDeptForm').style.display='none'">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Save Department</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="panel">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Department Name</th>
+                                <th>Keywords</th>
+                                <th>Active Officers</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="departmentsTableBody">
+                            <!-- Populated via Javascript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- User Management -->
+        <section id="users" class="page-content">
+            <div class="page-header">
+                <h1 class="page-title">User Management</h1>
+            </div>
+            <div class="panel">
+                <div class="filter-bar">
+                    <input type="text" placeholder="Search users by name, email..." class="filter-select"
+                        style="min-width: 250px;">
+                    <select class="filter-select">
+                        <option>Status: Active</option>
+                        <option>Status: Blocked</option>
+                    </select>
+                </div>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Contact</th>
+                                <th>Role</th>
+                                <th>Complaints</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="user-row">
+                                        <div class="admin-avatar"
+                                            style="width:32px; height:32px; font-size:12px; background:var(--bg-grey); color:var(--text-dark);">
+                                            JD</div>
+                                        <div class="user-info">
+                                            <h6>John Doe</h6>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <p style="font-size:0.75rem; color:var(--text-muted); margin:0;">
+                                        john@example.com<br>+91 9876543210</p>
+                                </td>
+                                <td>Citizen</td>
+                                <td>4</td>
+                                <td><span class="status-badge status-resolved">Active</span></td>
+                                <td>
+                                    <div style="display:flex; gap:0.5rem;">
+                                        <button class="btn btn-outline btn-small" title="Reset Password"><i
+                                                class="fa-solid fa-key"></i></button>
+                                        <button class="btn btn-outline btn-small"
+                                            style="color:var(--danger); border-color:var(--danger);"
+                                            title="Block User"><i class="fa-solid fa-ban"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="user-row">
+                                        <div class="admin-avatar"
+                                            style="width:32px; height:32px; font-size:12px; background:var(--bg-grey); color:var(--text-dark);">
+                                            SA</div>
+                                        <div class="user-info">
+                                            <h6>Spam Account</h6>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <p style="font-size:0.75rem; color:var(--text-muted); margin:0;">
+                                        spam@fake.com<br>+91 0000000000</p>
+                                </td>
+                                <td>Citizen</td>
+                                <td>12</td>
+                                <td><span class="status-badge status-urgent">Blocked</span></td>
+                                <td>
+                                    <div style="display:flex; gap:0.5rem;">
+                                        <button class="btn btn-outline btn-small" title="Reset Password" disabled><i
+                                                class="fa-solid fa-key"></i></button>
+                                        <button class="btn btn-outline btn-small" title="Unblock User"><i
+                                                class="fa-solid fa-unlock"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Reports Placeholder -->
+        <section id="reports" class="page-content">
+            <div class="page-header">
+                <h1 class="page-title">Generate Reports</h1>
+            </div>
+            <div class="panel">
+                <p>Generate PDF and Excel sheets containing monthly performance reports.</p>
+                <div style="display:flex; gap:1rem; margin-top:2rem;">
+                    <button class="btn btn-outline" style="border-color:#E11D48; color:#E11D48;"><i
+                            class="fa-solid fa-file-pdf"></i> Download PDF Report</button>
+                    <button class="btn btn-outline" style="border-color:#16A34A; color:#16A34A;"><i
+                            class="fa-solid fa-file-excel"></i> Download Excel Data</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="static/admin.js"></script>
+</body>
+
+</html>

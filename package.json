@@ -1,0 +1,18 @@
+{
+  "name": "ai-grievance-classifier",
+  "version": "1.0.0",
+  "description": "AI Powered Public Grievance Classifier – Login with Firebase & Twilio OTP",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "firebase": "^12.9.0",
+    "firebase-admin": "^13.7.0",
+    "twilio": "^5.5.1"
+  }
+}

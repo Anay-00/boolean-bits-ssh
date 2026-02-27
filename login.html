@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="AI Powered Public Grievance Classifier – Citizen & Admin Portal. Register, login, or manage grievances." />
+  <title>Login | Samadhan Setu – AI Grievance Portal</title>
+  <link rel="stylesheet" href="static/login.css?v=20260227-1" />
+</head>
+
+<body>
+
+  <!-- ============ Toast Notification ============ -->
+  <div class="toast" id="toast">
+    <svg viewBox="0 0 24 24">
+      <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+    </svg>
+    <span id="toastMsg">OTP Verified Successfully!</span>
+  </div>
+
+  <!-- ============ Error Toast ============ -->
+  <div class="toast toast--error" id="errorToast">
+    <svg viewBox="0 0 24 24">
+      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" />
+    </svg>
+    <span id="errorToastMsg">Something went wrong</span>
+  </div>
+
+  <main class="page">
+    <!-- ====== Left Hero Panel ====== -->
+    <section class="hero" aria-label="Feature carousel">
+      <div class="carousel" id="carousel">
+        <div class="carousel__slide active">
+          <img src="static/assets/hero-1.png" alt="Citizens filing digital grievances" />
+        </div>
+        <div class="carousel__slide">
+          <img src="static/assets/hero-2.png" alt="AI classifying citizen grievances" />
+        </div>
+        <div class="carousel__slide">
+          <img src="static/assets/hero-3.png" alt="Smart governance digital network" />
+        </div>
+      </div>
+
+      <div class="carousel__dots" id="carouselDots">
+        <button class="carousel__dot active" aria-label="Slide 1"></button>
+        <button class="carousel__dot" aria-label="Slide 2"></button>
+        <button class="carousel__dot" aria-label="Slide 3"></button>
+      </div>
+
+      <p class="hero__tagline">Empowering Citizens through<br />Smart Governance</p>
+    </section>
+
+    <!-- ====== Right Auth Panel ====== -->
+    <section class="login" aria-label="Authentication">
+      <div class="card">
+        <!-- Lock Icon -->
+        <div class="card__icon">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1s3.1 1.39 3.1 3.1v2z" />
+          </svg>
+        </div>
+
+        <h1 class="card__title">Samadhan Setu</h1>
+        <p class="card__subtitle">AI-Powered Public Grievance Portal</p>
+
+        <!-- ========= Top Tabs: Sign Up / Login ========= -->
+        <div class="auth-tabs" id="authTabs">
+          <button class="auth-tab active" data-tab="signup">Sign Up</button>
+          <button class="auth-tab" data-tab="login">Login</button>
+          <div class="auth-tab__indicator"></div>
+        </div>
+
+        <!-- ===============================================
+             SIGN UP FORM
+             =============================================== -->
+        <div class="tab-content active" id="signupPanel">
+          <form id="signupForm" novalidate autocomplete="off">
+            <!-- Full Name -->
+            <div class="field">
+              <label class="field__label" for="signupName">Full Name</label>
+              <div class="field__input-wrap">
+                <input class="field__input" type="text" id="signupName" placeholder="Enter your full name" />
+                <svg class="icon" viewBox="0 0 24 24">
+                  <path
+                    d="M12 12c2.7 0 4.88-2.18 4.88-4.88S14.7 2.25 12 2.25 7.12 4.43 7.12 7.12 9.3 12 12 12zm0 2.44c-3.26 0-9.75 1.63-9.75 4.88v2.44h19.5v-2.44c0-3.25-6.49-4.88-9.75-4.88z" />
+                </svg>
+              </div>
+              <div class="field__error" id="signupNameError"></div>
+            </div>
+
+            <!-- Mobile Number with +91 prefix -->
+            <div class="field">
+              <label class="field__label" for="signupMobile">Mobile Number</label>
+              <div class="field__input-wrap field__input-wrap--phone">
+                <span class="phone-prefix">+91</span>
+                <input class="field__input field__input--phone" type="tel" id="signupMobile"
+                  placeholder="10-digit mobile number" maxlength="10" />
+                <svg class="icon icon--phone" viewBox="0 0 24 24">
+                  <path
+                    d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1.003 1.003 0 011.01-.24c1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" />
+                </svg>
+              </div>
+              <div class="field__error" id="signupMobileError"></div>
+            </div>
+
+            <!-- Captcha -->
+            <div class="field">
+              <label class="field__label">Captcha Verification</label>
+              <div class="captcha-row">
+                <div class="field__input-wrap">
+                  <input class="field__input" type="text" id="signupCaptchaInput" placeholder="Enter captcha"
+                    style="padding-left:14px" />
+                </div>
+                <div class="captcha-display">
+                  <canvas class="captcha-canvas" id="signupCaptchaCanvas" width="120" height="48"></canvas>
+                  <button type="button" class="captcha-refresh" id="signupCaptchaRefresh" aria-label="Refresh captcha">
+                    <svg viewBox="0 0 24 24">
+                      <path
+                        d="M17.65 6.35A7.958 7.958 0 0012 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0112 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+              <div class="field__error" id="signupCaptchaError"></div>
+            </div>
+
+            <!-- Send OTP Button -->
+            <button type="submit" class="btn btn--primary" id="signupSendOtpBtn">
+              <span class="btn__text">Send OTP</span>
+              <span class="spinner"></span>
+            </button>
+          </form>
+
+          <!-- OTP Section (hidden initially) -->
+          <div class="otp-section" id="signupOtpSection">
+            <p class="otp-label">Enter the 6-digit OTP sent to your mobile</p>
+            <div class="otp-group" id="signupOtpGroup">
+              <input class="otp-group__input" type="text" maxlength="1" inputmode="numeric" aria-label="OTP digit 1" />
+              <input class="otp-group__input" type="text" maxlength="1" inputmode="numeric" aria-label="OTP digit 2" />
+              <input class="otp-group__input" type="text" maxlength="1" inputmode="numeric" aria-label="OTP digit 3" />
+              <input class="otp-group__input" type="text" maxlength="1" inputmode="numeric" aria-label="OTP digit 4" />
+              <input class="otp-group__input" type="text" maxlength="1" inputmode="numeric" aria-label="OTP digit 5" />
+              <input class="otp-group__input" type="text" maxlength="1" inputmode="numeric" aria-label="OTP digit 6" />
+            </div>
+            <div class="field__error" id="signupOtpError" style="text-align:center"></div>
+            <button type="button" class="btn btn--primary" id="signupVerifyOtpBtn">
+              <span class="btn__text">Verify & Sign Up</span>
+              <span class="spinner"></span>
+            </button>
+          </div>
+        </div>
+
+        <!-- ===============================================
+             LOGIN FORM
+             =============================================== -->
+        <div class="tab-content" id="loginPanel">
+
+          <!-- Login Mode Toggle: User / Admin -->
+          <div class="login-mode-toggle" id="loginModeToggle">
+            <button class="mode-btn active" data-mode="user">
+              <svg viewBox="0 0 24 24" width="16" height="16">
+                <path
+                  d="M12 12c2.7 0 4.88-2.18 4.88-4.88S14.7 2.25 12 2.25 7.12 4.43 7.12 7.12 9.3 12 12 12zm0 2.44c-3.26 0-9.75 1.63-9.75 4.88v2.44h19.5v-2.44c0-3.25-6.49-4.88-9.75-4.88z" />
+              </svg>
+              <span>User</span>
+            </button>
+            <button class="mode-btn" data-mode="admin">
+              <svg viewBox="0 0 24 24" width="16" height="16">
+                <path
+                  d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z" />
+              </svg>
+              <span>Admin</span>
+            </button>
+            <div class="mode-indicator"></div>
+          </div>
+
+          <!-- === User Login Form === -->
+          <div class="login-form-panel active" id="userLoginPanel">
+            <form id="userLoginForm" novalidate autocomplete="off">
+              <!-- Mobile / User ID -->
+              <div class="field">
+                <label class="field__label" for="loginIdentifier">Mobile Number or User ID</label>
+                <div class="field__input-wrap">
+                  <input class="field__input" type="text" id="loginIdentifier"
+                    placeholder="e.g. 9876543210 or USR-A1B2C3" />
+                  <svg class="icon" viewBox="0 0 24 24">
+                    <path
+                      d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2a7.2 7.2 0 01-6-3.22c.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08a7.2 7.2 0 01-6 3.22z" />
+                  </svg>
+                </div>
+                <div class="field__error" id="loginIdentifierError"></div>
+              </div>
+
+              <!-- Captcha -->
+              <div class="field">
+                <label class="field__label">Captcha Verification</label>
+                <div class="captcha-row">
+                  <div class="field__input-wrap">
+                    <input class="field__input" type="text" id="loginCaptchaInput" placeholder="Enter captcha"
+                      style="padding-left:14px" />
+                  </div>
+                  <div class="captcha-display">
+                    <canvas class="captcha-canvas" id="loginCaptchaCanvas" width="120" height="48"></canvas>
+                    <button type="button" class="captcha-refresh" id="loginCaptchaRefresh" aria-label="Refresh captcha">
+                      <svg viewBox="0 0 24 24">
+                        <path
+                          d="M17.65 6.35A7.958 7.958 0 0012 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0112 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+                <div class="field__error" id="loginCaptchaError"></div>
+              </div>
+
+              <!-- Send OTP Button -->
+              <button type="submit" class="btn btn--primary" id="loginSendOtpBtn">
+                <span class="btn__text">Send OTP</span>
+                <span class="spinner"></span>
+              </button>
+            </form>
+
+            <!-- OTP Section (hidden initially) -->
+            <div class="otp-section" id="loginOtpSection">
+              <p class="otp-label">Enter the 6-digit OTP sent to your registered mobile</p>
+              <div class="otp-group" id="loginOtpGroup">
+                <input class="otp-group__input" type="text" maxlength="1" inputmode="numeric"
+                  aria-label="OTP digit 1" />
+                <input class="otp-group__input" type="text" maxlength="1" inputmode="numeric"
+                  aria-label="OTP digit 2" />
+                <input class="otp-group__input" type="text" maxlength="1" inputmode="numeric"
+                  aria-label="OTP digit 3" />
+                <input class="otp-group__input" type="text" maxlength="1" inputmode="numeric"
+                  aria-label="OTP digit 4" />
+                <input class="otp-group__input" type="text" maxlength="1" inputmode="numeric"
+                  aria-label="OTP digit 5" />
+                <input class="otp-group__input" type="text" maxlength="1" inputmode="numeric"
+                  aria-label="OTP digit 6" />
+              </div>
+              <div class="field__error" id="loginOtpError" style="text-align:center"></div>
+              <button type="button" class="btn btn--primary" id="loginVerifyOtpBtn">
+                <span class="btn__text">Verify & Login</span>
+                <span class="spinner"></span>
+              </button>
+            </div>
+          </div>
+
+          <!-- === Admin Login Form === -->
+          <div class="login-form-panel" id="adminLoginPanel">
+            <form id="adminLoginForm" novalidate autocomplete="off">
+              <!-- Admin Email -->
+              <div class="field">
+                <label class="field__label" for="adminEmail">Admin Email</label>
+                <div class="field__input-wrap">
+                  <input class="field__input" type="email" id="adminEmail" placeholder="admin@samadhansetu.gov.in" />
+                  <svg class="icon" viewBox="0 0 24 24">
+                    <path
+                      d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+                  </svg>
+                </div>
+                <div class="field__error" id="adminEmailError"></div>
+              </div>
+
+              <!-- Admin Password -->
+              <div class="field">
+                <label class="field__label" for="adminPassword">Password</label>
+                <div class="field__input-wrap">
+                  <input class="field__input" type="password" id="adminPassword" placeholder="Enter password" />
+                  <svg class="icon" viewBox="0 0 24 24">
+                    <path
+                      d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1s3.1 1.39 3.1 3.1v2z" />
+                  </svg>
+                  <button type="button" class="password-toggle" id="passwordToggle"
+                    aria-label="Toggle password visibility">
+                    <svg class="eye-open" viewBox="0 0 24 24" width="18" height="18">
+                      <path
+                        d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" />
+                    </svg>
+                    <svg class="eye-closed" viewBox="0 0 24 24" width="18" height="18" style="display:none">
+                      <path
+                        d="M12 7c2.76 0 5 2.24 5 5 0 .65-.13 1.26-.36 1.83l2.92 2.92c1.51-1.26 2.7-2.89 3.43-4.75-1.73-4.39-6-7.5-11-7.5-1.4 0-2.74.25-3.98.7l2.16 2.16C10.74 7.13 11.35 7 12 7zM2 4.27l2.28 2.28.46.46A11.804 11.804 0 001 12c1.73 4.39 6 7.5 11 7.5 1.55 0 3.03-.3 4.38-.84l.42.42L19.73 22 21 20.73 3.27 3 2 4.27zM7.53 9.8l1.55 1.55c-.05.21-.08.43-.08.65 0 1.66 1.34 3 3 3 .22 0 .44-.03.65-.08l1.55 1.55c-.67.33-1.41.53-2.2.53-2.76 0-5-2.24-5-5 0-.79.2-1.53.53-2.2zm4.31-.78l3.15 3.15.02-.16c0-1.66-1.34-3-3-3l-.17.01z" />
+                    </svg>
+                  </button>
+                </div>
+                <div class="field__error" id="adminPasswordError"></div>
+              </div>
+
+              <!-- Admin Login Button -->
+              <button type="submit" class="btn btn--primary" id="adminLoginBtn">
+                <span class="btn__text">Login as Admin</span>
+                <span class="spinner"></span>
+              </button>
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ── Firebase SDK (v9 compat) ── -->
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+
+  <!-- ── Firebase Config ── -->
+  <script src="static/firebase-config.js?v=20260227-1"></script>
+
+  <!-- ── App Logic ── -->
+  <script src="static/login.js?v=20260227-1"></script>
+</body>
+
+</html>
