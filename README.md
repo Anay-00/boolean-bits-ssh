@@ -32,11 +32,10 @@ Heatmap updates to reflect issue concentration
 Admin can monitor and manage complaints
 
 📸 Screenshots
-<img width="971" height="547" alt="image" src="https://github.com/user-attachments/assets/3e680387-4440-44f9-9efa-c0b09e4fbf2b" />
-<img width="961" height="547" alt="image" src="https://github.com/user-attachments/assets/fe894b79-a36e-45a7-b646-01a82d2dc690" />
-<img width="878" height="550" alt="image" src="https://github.com/user-attachments/assets/5551d5f0-a895-4a09-8b5c-dd0b2af8688c" />
-<img width="1159" height="419" alt="image" src="https://github.com/user-attachments/assets/fa74bc93-87c1-4576-b855-709781bef931" />
-<img width="997" height="560" alt="image" src="https://github.com/user-attachments/assets/f50e553e-1db2-48e0-84ae-fe8f19d5e8b4" />
+<img width="1366" height="768" alt="image" src="https://github.com/user-attachments/assets/eb3a866a-5652-42f4-b8a4-b1d833849412" />
+<img width="1366" height="768" alt="image" src="https://github.com/user-attachments/assets/9b988c2c-90fe-4c1d-bf96-12942060a434" />
+<img width="1366" height="768" alt="image" src="https://github.com/user-attachments/assets/d801fa68-f068-4e23-9857-ddfc60f3ad84" />
+<img width="1366" height="768" alt="image" src="https://github.com/user-attachments/assets/0bd6417a-7e90-40b4-ab3b-eedeb182ded5" />
 
 🧠 Challenges Faced
 Integrating AI chatbot with real-time classification
